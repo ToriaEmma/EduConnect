@@ -205,6 +205,7 @@ export const HomePage = () => {
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <div className="text-center mb-20">
+                        <img src="/key-differentiator-decoration.png" alt="" className="mx-auto w-32 md:w-48 mb-6" />
                         <Badge color="slate" className="bg-white text-slate-700 border border-slate-200 px-4 py-1.5 text-sm shadow-sm mb-8">Notre différence</Badge>
                         <h2 className="text-5xl lg:text-7xl font-bold mb-8 tracking-tight text-slate-900 text-balance">
                             La compétence <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">prouvée</span>,<br /> plus seulement déclarée.
@@ -259,222 +260,266 @@ export const HomePage = () => {
                     </div>
                 </div>
             </section>
-            {/* Focus Enseignants */}
-            <section id="teachers" className="py-32 bg-slate-50">
+            {/* Focus Enseignants - Minimalist Luxury */}
+            <section id="teachers" className="py-40 bg-white relative overflow-hidden">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex flex-col lg:flex-row items-center gap-20">
-                        <div className="lg:w-1/2">
-                            <Badge color="blue" className="mb-6">Focus Enseignants / Répétiteurs</Badge>
-                            <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-8 leading-tight">
-                                Pourquoi puis-je faire confiance à cet enseignant ?
+                    <div className="flex flex-col lg:flex-row items-center gap-24">
+                        <div className="lg:w-1/2 z-10">
+                            <Badge className="bg-slate-100 text-slate-900 border-none px-4 py-2 mb-8 text-sm font-medium tracking-wide">POUR LES ENSEIGNANTS</Badge>
+                            <h2 className="text-5xl lg:text-7xl font-bold text-slate-900 mb-8 leading-[1.1] tracking-tight text-balance">
+                                Votre talent mérite d'être <span className="italic font-serif">reconnu</span>.
                             </h2>
-                            <blockquote className="border-l-4 border-indigo-500 pl-6 py-2 mb-10 bg-white p-6 rounded-r-xl shadow-sm">
-                                <p className="text-slate-700 text-lg italic font-medium">
-                                    "Les diplômes disent ce que vous avez étudié, nos jeux disent ce que vous savez faire."
-                                </p>
-                            </blockquote>
-                            <ul className="space-y-6 mb-10">
-                                {[
-                                    "Compétences enseignées clairement affichées",
-                                    "Scores et badges issus des jeux pédagogiques",
-                                    "Disponibilités en temps réel",
-                                    "Avis et évaluations vérifiés"
-                                ].map(item => (
-                                    <li key={item} className="flex items-center gap-4 text-slate-700 font-medium text-lg">
-                                        <div className="bg-white p-1 rounded-full shadow-sm">
-                                            <CheckCircle className="text-indigo-600" size={20} />
-                                        </div>
-                                        {item}
-                                    </li>
-                                ))}
-                            </ul>
-                            <Button onClick={() => navigate('/teacher/sample')} className="h-14 px-8 text-lg shadow-lg shadow-indigo-200">
-                                Voir un profil enseignant
-                            </Button>
-                        </div>
-                        <div className="lg:w-1/2 relative">
-                            <div className="absolute -inset-4 bg-indigo-100 rounded-[2rem] -rotate-2 -z-10" />
-                            <Card className="p-0 overflow-hidden border-0 shadow-2xl rounded-[2rem]">
-                                <div className="bg-slate-900 p-8 text-white">
-                                    <h4 className="font-bold text-xl">Aperçu Scoring Jeu</h4>
-                                    <p className="text-slate-400 text-sm mt-1">Validation en temps réel des compétences</p>
-                                </div>
-                                <div className="p-8 space-y-6 bg-white">
-                                    <div className="flex justify-between items-center">
-                                        <span className="font-bold text-slate-700 text-lg">Didactique des Maths</span>
-                                        <span className="text-indigo-600 font-black text-2xl">92%</span>
-                                    </div>
-                                    <div className="w-full bg-slate-100 h-4 rounded-full overflow-hidden">
-                                        <div className="bg-indigo-600 h-full w-[92%] rounded-full shadow-lg" />
-                                    </div>
-                                    <div className="flex gap-3 pt-2">
-                                        <Badge color="blue">Expert</Badge>
-                                        <Badge color="green">Top 10%</Badge>
-                                        <Badge color="amber">986 pts</Badge>
-                                    </div>
-                                </div>
-                            </Card>
-                        </div>
-                    </div>
-                </div>
-            </section >
-
-            {/* Focus Écoles */}
-            < section id="schools" className="py-32 bg-white" >
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex flex-col lg:flex-row-reverse items-center gap-20">
-                        <div className="lg:w-1/2">
-                            <Badge color="blue" className="mb-6">Focus Écoles</Badge>
-                            <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-8 leading-tight">
-                                Un espace dédié aux établissements scolaires
-                            </h2>
-                            <p className="text-slate-600 text-xl mb-10 leading-relaxed">
-                                Gérez vos besoins de recrutement, suivez les performances et collaborez avec des enseignants certifiés en toute simplicité.
+                            <p className="text-xl text-slate-500 mb-12 leading-relaxed max-w-lg">
+                                Une plateforme qui valorise vos compétences réelles. Pas juste vos diplômes.
                             </p>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
+
+                            <div className="space-y-8 mb-12">
                                 {[
-                                    { icon: <Users size={20} />, text: "Publication d'offres" },
-                                    { icon: <CheckCircle size={20} />, text: "Gestion candidatures" },
-                                    { icon: <TrendingUp size={20} />, text: "Suivi collaborations" },
-                                    { icon: <Mail size={20} />, text: "Messagerie intégrée" },
-                                    { icon: <Trophy size={20} />, text: "Rapports pédagogiques" },
-                                    { icon: <Zap size={20} />, text: "Facturation simplifiée" }
-                                ].map((item, idx) => (
-                                    <div key={idx} className="flex items-center gap-3 text-slate-700 bg-slate-50 p-3 rounded-lg">
-                                        <div className="text-indigo-600 bg-white p-2 rounded-md shadow-sm">{item.icon}</div>
-                                        <span className="font-bold">{item.text}</span>
+                                    { title: "Valorisation", desc: "Vos compétences mises en avant par la data." },
+                                    { title: "Visibilité", desc: "Accédez aux meilleures opportunités." },
+                                    { title: "Liberté", desc: "Gérez votre emploi du temps et vos tarifs." }
+                                ].map((item, i) => (
+                                    <div key={i} className="flex gap-6 group">
+                                        <div className="w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center group-hover:bg-slate-900 group-hover:border-slate-900 transition-colors duration-300">
+                                            <span className="text-slate-400 group-hover:text-white font-serif italic text-lg">{i + 1}</span>
+                                        </div>
+                                        <div>
+                                            <h4 className="text-lg font-bold text-slate-900 mb-1">{item.title}</h4>
+                                            <p className="text-slate-500">{item.desc}</p>
+                                        </div>
                                     </div>
                                 ))}
                             </div>
-                            <Button onClick={() => navigate('/school')} variant="school" className="h-14 px-8 text-lg shadow-xl shadow-slate-200">
-                                Créer un compte école
+
+                            <Button onClick={() => navigate('/teacher/sample')} className="h-16 px-10 bg-slate-900 text-white rounded-full text-lg hover:bg-slate-800 transition-all hover:scale-105 shadow-2xl shadow-slate-200">
+                                Créer mon profil
                             </Button>
                         </div>
-                        <div className="lg:w-1/2 relative">
-                            <div className="absolute -inset-4 bg-slate-100 rounded-[2rem] rotate-2 -z-10" />
-                            <Card className="bg-slate-900 text-white border-slate-800 shadow-2xl rounded-[2rem] p-8">
-                                <h4 className="font-bold text-xl mb-8 flex items-center gap-3">
-                                    <div className="bg-indigo-500 p-2 rounded-lg">
-                                        <Building2 className="text-white" size={24} />
+
+                        <div className="lg:w-1/2 relative w-full">
+                            {/* Abstract Composition */}
+                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] bg-slate-50 rounded-full blur-3xl -z-10 opacity-50"></div>
+
+                            <div className="relative">
+                                {/* Main Card */}
+                                <div className="bg-white p-8 rounded-[2.5rem] shadow-2xl border border-slate-100 relative z-20 max-w-md mx-auto transform hover:-translate-y-2 transition-transform duration-500">
+                                    <div className="flex items-center gap-4 mb-8">
+                                        <div className="w-16 h-16 bg-slate-100 rounded-full overflow-hidden">
+                                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=256&q=80" alt="Profile" className="w-full h-full object-cover" />
+                                        </div>
+                                        <div>
+                                            <h4 className="font-bold text-xl text-slate-900">Sarah M.</h4>
+                                            <p className="text-slate-500">Professeur de Mathématiques</p>
+                                        </div>
+                                        <Badge className="ml-auto bg-slate-900 text-white border-none">Certifiée</Badge>
                                     </div>
-                                    Tableau de bord École
-                                </h4>
-                                <div className="grid grid-cols-2 gap-6 mb-8">
-                                    <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700">
-                                        <p className="text-slate-400 text-xs font-bold uppercase mb-2 tracking-wider">Équipe active</p>
-                                        <p className="text-4xl font-bold">24</p>
+
+                                    <div className="space-y-4 mb-8">
+                                        <div className="flex justify-between items-center p-4 bg-slate-50 rounded-2xl">
+                                            <span className="font-medium text-slate-700">Pédagogie</span>
+                                            <span className="font-bold text-slate-900">98%</span>
+                                        </div>
+                                        <div className="flex justify-between items-center p-4 bg-slate-50 rounded-2xl">
+                                            <span className="font-medium text-slate-700">Patience</span>
+                                            <span className="font-bold text-slate-900">95%</span>
+                                        </div>
+                                        <div className="flex justify-between items-center p-4 bg-slate-50 rounded-2xl">
+                                            <span className="font-medium text-slate-700">Clarté</span>
+                                            <span className="font-bold text-slate-900">99%</span>
+                                        </div>
                                     </div>
-                                    <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700">
-                                        <p className="text-slate-400 text-xs font-bold uppercase mb-2 tracking-wider">Offres en cours</p>
-                                        <p className="text-4xl font-bold">3</p>
+
+                                    <div className="flex gap-2">
+                                        <div className="h-2 flex-1 bg-slate-900 rounded-full"></div>
+                                        <div className="h-2 flex-1 bg-slate-200 rounded-full"></div>
+                                        <div className="h-2 flex-1 bg-slate-200 rounded-full"></div>
                                     </div>
                                 </div>
-                                <div className="bg-indigo-600/20 border border-indigo-500/30 p-6 rounded-2xl">
-                                    <div className="flex justify-between items-start mb-2">
-                                        <p className="text-sm text-indigo-200 font-medium">Candidature récente</p>
-                                        <Badge color="green" className="text-[10px]">Nouveau</Badge>
+
+                                {/* Floating Elements */}
+                                <div className="absolute -right-8 top-20 bg-slate-900 text-white p-6 rounded-3xl shadow-xl z-30 max-w-[200px] hidden lg:block animate-bounce-slow">
+                                    <div className="flex gap-2 mb-2">
+                                        {[1, 2, 3, 4, 5].map(s => <div key={s} className="w-2 h-2 rounded-full bg-white"></div>)}
                                     </div>
-                                    <p className="font-bold text-lg">Professeur de SVT</p>
-                                    <p className="text-sm text-slate-400 mt-1">Score: 89/100 • Il y a 2h</p>
+                                    <p className="font-medium text-sm">"Une approche révolutionnaire de l'enseignement."</p>
                                 </div>
-                            </Card>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </section >
+            </section>
 
-            {/* Appel à l'action final */}
-            < section className="py-24 bg-indigo-600" >
-                <div className="max-w-4xl mx-auto px-4 text-center">
-                    <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
-                        Rejoignez EduConnect et transformez la manière dont l'éducation se connecte
+            {/* Focus Écoles - Corporate Premium */}
+            <section id="schools" className="py-40 bg-slate-50">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="flex flex-col lg:flex-row-reverse items-center gap-24">
+                        <div className="lg:w-1/2">
+                            <Badge className="bg-white text-slate-900 border border-slate-200 px-4 py-2 mb-8 text-sm font-medium tracking-wide">POUR LES ÉTABLISSEMENTS</Badge>
+                            <h2 className="text-5xl lg:text-7xl font-bold text-slate-900 mb-8 leading-[1.1] tracking-tight text-balance">
+                                Le recrutement <br /><span className="text-slate-400">réinventé</span>.
+                            </h2>
+                            <p className="text-xl text-slate-600 mb-12 leading-relaxed">
+                                Une suite d'outils puissants pour identifier, évaluer et recruter les meilleurs talents pédagogiques.
+                            </p>
+
+                            <div className="grid grid-cols-2 gap-8 mb-12">
+                                <div>
+                                    <h4 className="text-4xl font-bold text-slate-900 mb-2">3x</h4>
+                                    <p className="text-slate-500">Plus rapide pour qualifier un candidat</p>
+                                </div>
+                                <div>
+                                    <h4 className="text-4xl font-bold text-slate-900 mb-2">100%</h4>
+                                    <p className="text-slate-500">Fiabilité des compétences validées</p>
+                                </div>
+                            </div>
+
+                            <Button onClick={() => navigate('/school')} variant="outline" className="h-16 px-10 bg-white text-slate-900 border border-slate-200 rounded-full text-lg hover:bg-slate-50 hover:border-slate-300 transition-all">
+                                Solutions Écoles
+                            </Button>
+                        </div>
+
+                        <div className="lg:w-1/2 relative">
+                            <div className="bg-slate-900 rounded-[2.5rem] p-8 lg:p-12 shadow-2xl text-white relative overflow-hidden group hover:scale-[1.02] transition-transform duration-500">
+                                <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-[0.03] rounded-full blur-3xl -mr-16 -mt-16"></div>
+
+                                <div className="relative z-10">
+                                    <div className="flex items-center justify-between mb-12">
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center backdrop-blur-sm">
+                                                <Building2 className="text-white w-5 h-5" />
+                                            </div>
+                                            <span className="font-medium tracking-wide text-white/80">DASHBOARD</span>
+                                        </div>
+                                        <div className="flex gap-2">
+                                            <div className="w-3 h-3 rounded-full bg-red-500/20"></div>
+                                            <div className="w-3 h-3 rounded-full bg-amber-500/20"></div>
+                                            <div className="w-3 h-3 rounded-full bg-green-500/20"></div>
+                                        </div>
+                                    </div>
+
+                                    <div className="grid grid-cols-2 gap-6 mb-8">
+                                        <div className="bg-white/5 p-6 rounded-2xl border border-white/10 backdrop-blur-sm">
+                                            <p className="text-slate-400 text-xs font-bold uppercase mb-2 tracking-wider">Candidats</p>
+                                            <p className="text-4xl font-bold text-white">128</p>
+                                        </div>
+                                        <div className="bg-white/5 p-6 rounded-2xl border border-white/10 backdrop-blur-sm">
+                                            <p className="text-slate-400 text-xs font-bold uppercase mb-2 tracking-wider">Entretiens</p>
+                                            <p className="text-4xl font-bold text-white">12</p>
+                                        </div>
+                                    </div>
+
+                                    <div className="bg-white text-slate-900 p-6 rounded-2xl shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                        <div className="flex justify-between items-center mb-4">
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center">
+                                                    <UserCheck className="w-5 h-5 text-slate-900" />
+                                                </div>
+                                                <div>
+                                                    <p className="font-bold">Nouveau Match</p>
+                                                    <p className="text-xs text-slate-500">Il y a 2 min</p>
+                                                </div>
+                                            </div>
+                                            <Badge className="bg-slate-900 text-white text-[10px]">98% MATCH</Badge>
+                                        </div>
+                                        <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                                            <div className="h-full bg-slate-900 w-[98%]"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Appel à l'action final - The Portal */}
+            <section className="py-32 bg-slate-900 relative overflow-hidden">
+                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
+                <div className="max-w-5xl mx-auto px-4 text-center relative z-10">
+                    <h2 className="text-6xl lg:text-8xl font-bold text-white mb-12 tracking-tighter leading-none">
+                        Prêt à changer <br /> la donne ?
                     </h2>
-                    <p className="text-xl text-indigo-100 mb-10">
-                        Inscrivez-vous gratuitement et découvrez une nouvelle façon de connecter talents et opportunités
+                    <p className="text-2xl text-slate-400 mb-16 font-light max-w-2xl mx-auto">
+                        Rejoignez l'élite de l'éducation. Commencez votre voyage aujourd'hui.
                     </p>
-                    <div className="flex flex-wrap justify-center gap-4">
+                    <div className="flex flex-col sm:flex-row justify-center gap-6">
                         <Button
                             onClick={() => navigate('/student')}
-                            className="h-14 px-8 text-lg bg-white text-indigo-600 hover:bg-slate-100"
+                            className="h-20 px-12 text-xl bg-white text-slate-900 rounded-full hover:bg-slate-100 transition-all hover:scale-105 font-bold"
                         >
-                            S'inscrire gratuitement
+                            Commencer maintenant
                         </Button>
                         <Button
                             variant="outline"
-                            className="h-14 px-8 text-lg border-2 border-white text-white hover:bg-white/10"
+                            className="h-20 px-12 text-xl border border-slate-700 text-white rounded-full hover:bg-slate-800 transition-all font-medium"
                         >
-                            Nous contacter
+                            En savoir plus
                         </Button>
                     </div>
                 </div>
-            </section >
+            </section>
 
-            {/* Footer */}
-            < footer className="bg-slate-900 text-slate-400" >
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-                        {/* Logo et description */}
-                        <div className="md:col-span-1">
-                            <div className="flex items-center gap-2 mb-4">
-                                <div className="bg-indigo-600 p-2 rounded-lg">
-                                    <School className="text-white w-5 h-5" />
+            {/* Footer - Architectural Grid */}
+            <footer className="bg-white text-slate-900 border-t border-slate-100">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-24">
+                        {/* Brand */}
+                        <div className="md:col-span-4">
+                            <div className="flex items-center gap-3 mb-8">
+                                <div className="bg-slate-900 p-2.5 rounded-xl">
+                                    <School className="text-white w-6 h-6" />
                                 </div>
-                                <span className="text-xl font-bold text-white">EduConnect</span>
+                                <span className="text-2xl font-bold tracking-tight">EduConnect</span>
                             </div>
-                            <p className="text-sm text-slate-500 leading-relaxed">
-                                La plateforme qui connecte l'éducation par la compétence
+                            <p className="text-slate-500 leading-relaxed text-lg mb-8">
+                                La première plateforme qui connecte l'éducation par la preuve de compétence.
                             </p>
+                            <div className="flex gap-4">
+                                {[Facebook, Twitter, Linkedin, Instagram].map((Icon, i) => (
+                                    <a key={i} href="#" className="w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center hover:bg-slate-900 hover:text-white hover:border-slate-900 transition-all duration-300 text-slate-400">
+                                        <Icon size={20} />
+                                    </a>
+                                ))}
+                            </div>
                         </div>
 
-                        {/* Navigation */}
-                        <div>
-                            <h4 className="font-bold text-white mb-4">Navigation</h4>
-                            <ul className="space-y-2 text-sm">
-                                <li><a href="#home" className="hover:text-white transition-colors">Accueil</a></li>
-                                <li><a href="#about" className="hover:text-white transition-colors">Élèves & Parents</a></li>
-                                <li><a href="#teachers" className="hover:text-white transition-colors">Enseignants</a></li>
-                                <li><a href="#schools" className="hover:text-white transition-colors">Écoles</a></li>
-                                <li><a href="#how" className="hover:text-white transition-colors">Comment ça marche</a></li>
-                            </ul>
-                        </div>
-
-                        {/* Légal */}
-                        <div>
-                            <h4 className="font-bold text-white mb-4">Légal</h4>
-                            <ul className="space-y-2 text-sm">
-                                <li><a href="#" className="hover:text-white transition-colors">À propos</a></li>
-                                <li><a href="#" className="hover:text-white transition-colors">Conditions d'utilisation</a></li>
-                                <li><a href="#" className="hover:text-white transition-colors">Politique de confidentialité</a></li>
-                                <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
-                            </ul>
-                        </div>
-
-                        {/* Réseaux sociaux */}
-                        <div>
-                            <h4 className="font-bold text-white mb-4">Suivez-nous</h4>
-                            <div className="flex gap-3">
-                                <a href="#" className="w-10 h-10 bg-slate-800 rounded-lg flex items-center justify-center hover:bg-indigo-600 transition-colors">
-                                    <Facebook size={18} />
-                                </a>
-                                <a href="#" className="w-10 h-10 bg-slate-800 rounded-lg flex items-center justify-center hover:bg-indigo-600 transition-colors">
-                                    <Twitter size={18} />
-                                </a>
-                                <a href="#" className="w-10 h-10 bg-slate-800 rounded-lg flex items-center justify-center hover:bg-indigo-600 transition-colors">
-                                    <Linkedin size={18} />
-                                </a>
-                                <a href="#" className="w-10 h-10 bg-slate-800 rounded-lg flex items-center justify-center hover:bg-indigo-600 transition-colors">
-                                    <Instagram size={18} />
-                                </a>
+                        {/* Links Grid */}
+                        <div className="md:col-span-8 grid grid-cols-2 md:grid-cols-3 gap-12">
+                            <div>
+                                <h4 className="font-bold text-lg mb-8">Plateforme</h4>
+                                <ul className="space-y-4 text-slate-500">
+                                    <li><a href="#home" className="hover:text-slate-900 transition-colors">Accueil</a></li>
+                                    <li><a href="#teachers" className="hover:text-slate-900 transition-colors">Pour les enseignants</a></li>
+                                    <li><a href="#schools" className="hover:text-slate-900 transition-colors">Pour les écoles</a></li>
+                                    <li><a href="#how" className="hover:text-slate-900 transition-colors">Comment ça marche</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 className="font-bold text-lg mb-8">Ressources</h4>
+                                <ul className="space-y-4 text-slate-500">
+                                    <li><a href="#" className="hover:text-slate-900 transition-colors">Blog</a></li>
+                                    <li><a href="#" className="hover:text-slate-900 transition-colors">Guide des carrières</a></li>
+                                    <li><a href="#" className="hover:text-slate-900 transition-colors">Support</a></li>
+                                    <li><a href="#" className="hover:text-slate-900 transition-colors">Contact</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 className="font-bold text-lg mb-8">Légal</h4>
+                                <ul className="space-y-4 text-slate-500">
+                                    <li><a href="#" className="hover:text-slate-900 transition-colors">Confidentialité</a></li>
+                                    <li><a href="#" className="hover:text-slate-900 transition-colors">Conditions</a></li>
+                                    <li><a href="#" className="hover:text-slate-900 transition-colors">Cookies</a></li>
+                                </ul>
                             </div>
                         </div>
                     </div>
 
-                    {/* Copyright */}
-                    <div className="border-t border-slate-800 pt-8 text-center text-sm">
+                    <div className="border-t border-slate-100 mt-24 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-slate-400 text-sm">
                         <p>© 2025 EduConnect. Tous droits réservés.</p>
+                        <p>Fait avec passion pour l'éducation.</p>
                     </div>
                 </div>
-            </footer >
+            </footer>
         </div >
     );
 };
