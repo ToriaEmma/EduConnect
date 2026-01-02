@@ -21,7 +21,7 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <div className="flex-shrink-0 flex items-center gap-2">
-            <img src="/educo.png" alt="EduConnect" className="h-14 w-auto" />
+            <img src="/educo.png" alt="EduConnect" className="h-16 w-auto" />
           </div>
 
           <div className="hidden md:block">
