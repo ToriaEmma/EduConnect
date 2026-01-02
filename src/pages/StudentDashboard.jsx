@@ -1,24 +1,15 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-    School,
-    BookOpen,
-    MessageSquare,
-    LineChart,
-    Search,
-    Bell,
-    LogOut,
-    Calendar,
-    TrendingUp,
-    FileText,
-    CheckCircle,
-    ArrowRight,
-    Filter
+    School, BookOpen, MessageSquare, LineChart, Search,
+    Bell, LogOut, Calendar, TrendingUp, FileText,
+    CheckCircle, ArrowRight, Filter
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
 import { TeacherCard } from '../components/TeacherCard';
+import { motion } from 'framer-motion';
 
 export const StudentDashboard = () => {
     const navigate = useNavigate();
@@ -31,149 +22,244 @@ export const StudentDashboard = () => {
         { name: "Mme. Elise Diallo", role: "Étudiante Master Anglais", rating: 4.5, reviews: 34, subjects: ["Anglais", "Oral"], price: "8.000 F", img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop" },
     ];
 
+    const menuItems = [
+        { id: 'overview', label: 'Tableau de bord', icon: LineChart },
+        { id: 'teachers', label: 'Trouver un répétiteur', icon: Search },
+        { id: 'subjects', label: 'Mes Matières', icon: BookOpen },
+        { id: 'messages', label: 'Messagerie', icon: MessageSquare },
+    ];
+
     return (
-        <div className="flex min-h-screen bg-slate-50">
+        <div className="flex min-h-screen bg-slate-50 font-sans">
             {/* Sidebar Navigation */}
-            <aside className="w-64 bg-white border-r border-slate-200 hidden lg:flex flex-col">
-                <div className="p-6 flex items-center gap-2 border-b border-slate-100">
-                    <div className="bg-indigo-600 p-1.5 rounded-lg">
-                        <School className="text-white w-5 h-5" />
+            <aside className="w-72 bg-white border-r border-slate-200 hidden lg:flex flex-col fixed h-full z-20">
+                <div className="p-8 flex items-center gap-3">
+                    <div className="bg-primary/10 p-2 rounded-xl">
+                        <School className="text-primary w-6 h-6" />
                     </div>
-                    <span className="text-xl font-bold text-slate-900">EduConnect</span>
+                    <span className="text-2xl font-bold text-slate-800 tracking-tight">Edu<span className="text-primary">Connect</span></span>
                 </div>
-                <nav className="p-4 space-y-2 flex-grow">
-                    <button
-                        onClick={() => setActiveTab('overview')}
-                        className={`w-full text-left px-4 py-3 rounded-xl flex items-center gap-3 transition-colors ${activeTab === 'overview' ? 'bg-indigo-50 text-indigo-700 font-bold' : 'text-slate-600 hover:bg-slate-50 font-medium'}`}
-                    >
-                        <LineChart size={20} /> Tableau de bord
-                    </button>
-                    <button
-                        onClick={() => setActiveTab('teachers')}
-                        className={`w-full text-left px-4 py-3 rounded-xl flex items-center gap-3 transition-colors ${activeTab === 'teachers' ? 'bg-indigo-50 text-indigo-700 font-bold' : 'text-slate-600 hover:bg-slate-50 font-medium'}`}
-                    >
-                        <Search size={20} /> Trouver un répétiteur
-                    </button>
-                    <div className="text-slate-600 hover:bg-slate-50 px-4 py-3 rounded-xl flex items-center gap-3 transition-colors cursor-pointer font-medium">
-                        <BookOpen size={20} /> Mes Matières
-                    </div>
-                    <div className="text-slate-600 hover:bg-slate-50 px-4 py-3 rounded-xl flex items-center gap-3 transition-colors cursor-pointer font-medium">
-                        <MessageSquare size={20} /> Messagerie
-                    </div>
+
+                <nav className="px-4 space-y-2 flex-grow">
+                    {menuItems.map((item) => {
+                        const Icon = item.icon;
+                        const isActive = activeTab === item.id;
+                        return (
+                            <button
+                                key={item.id}
+                                onClick={() => setActiveTab(item.id)}
+                                className={`w-full text-left px-5 py-4 rounded-xl flex items-center gap-4 transition-all duration-200 group ${isActive
+                                        ? 'bg-primary text-white shadow-lg shadow-primary/25'
+                                        : 'text-slate-500 hover:bg-slate-50 hover:text-primary'
+                                    }`}
+                            >
+                                <Icon size={20} className={isActive ? 'text-white' : 'text-slate-400 group-hover:text-primary transition-colors'} />
+                                <span className="font-semibold">{item.label}</span>
+                            </button>
+                        );
+                    })}
                 </nav>
-                <div className="p-4 border-t border-slate-100">
-                    <Button variant="ghost" className="w-full justify-start text-red-600 hover:bg-red-50" onClick={() => navigate('/')}>
-                        <LogOut size={20} /> Déconnexion
+
+                <div className="p-6 border-t border-slate-100">
+                    <div className="bg-slate-50 p-4 rounded-2xl mb-4 border border-slate-100">
+                        <div className="flex items-center gap-3 mb-2">
+                            <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center">
+                                <TrendingUp className="text-amber-600 w-5 h-5" />
+                            </div>
+                            <div>
+                                <p className="text-xs text-slate-500 font-bold uppercase">Niveau</p>
+                                <p className="text-slate-900 font-bold">Terminale S</p>
+                            </div>
+                        </div>
+                        <div className="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
+                            <div className="bg-amber-500 h-full w-[70%]"></div>
+                        </div>
+                    </div>
+                    <Button variant="ghost" className="w-full justify-start text-red-500 hover:bg-red-50 hover:text-red-600" onClick={() => navigate('/')}>
+                        <LogOut size={20} className="mr-2" /> Déconnexion
                     </Button>
                 </div>
             </aside>
 
             {/* Main Content */}
-            <main className="flex-grow p-4 lg:p-10 max-w-7xl mx-auto">
-                <header className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
+            <main className="flex-grow p-4 lg:p-10 lg:ml-72 max-w-[1600px] mx-auto w-full relative">
+                <header className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
                     <div>
-                        <h2 className="text-3xl font-bold text-slate-900">
-                            {activeTab === 'overview' ? 'Bonjour, Marc ! 👋' : 'Trouvez votre répétiteur'}
-                        </h2>
-                        <p className="text-slate-500 mt-1">
-                            {activeTab === 'overview' ? 'Élève en Terminale S - Lycée Jean Rostand' : 'Parcourez les profils certifiés par EduConnect'}
+                        <motion.h2
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            className="text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight"
+                        >
+                            {activeTab === 'overview' ? 'Bonjour, Marc ! 👋' : 'Trouvez votre mentor'}
+                        </motion.h2>
+                        <p className="text-slate-500 mt-2 font-medium">
+                            {activeTab === 'overview' ? 'Prêt à apprendre quelque chose de nouveau aujourd\'hui ?' : 'Connectez-vous avec des experts validés.'}
                         </p>
                     </div>
-                    <div className="flex items-center gap-4">
-                        <button className="relative p-2 text-slate-400 hover:text-slate-600">
+                    <div className="flex items-center gap-6">
+                        <button className="relative p-2 text-slate-400 hover:text-primary transition-colors">
                             <Bell size={24} />
-                            <span className="absolute top-2 right-2 w-2.5 h-2.5 bg-red-500 border-2 border-white rounded-full" />
+                            <span className="absolute top-2 right-2 w-2.5 h-2.5 bg-red-500 border-2 border-slate-50 rounded-full animate-pulse" />
                         </button>
-                        <div className="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-700 font-bold border-2 border-white shadow-sm">MA</div>
+                        <div className="flex items-center gap-3 pl-6 border-l border-slate-200">
+                            <div className="text-right hidden md:block">
+                                <p className="text-sm font-bold text-slate-900">Marc Anderson</p>
+                                <p className="text-xs text-slate-500">Étudiant Premium</p>
+                            </div>
+                            <div className="w-12 h-12 bg-gradient-to-br from-primary to-blue-600 rounded-full flex items-center justify-center text-white font-bold border-4 border-white shadow-lg">
+                                MA
+                            </div>
+                        </div>
                     </div>
                 </header>
 
-                {activeTab === 'overview' ? (
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                        <Card className="lg:col-span-2">
-                            <div className="flex items-center justify-between mb-6">
-                                <h3 className="text-xl font-bold flex items-center gap-2"><MessageSquare className="text-indigo-600" /> Q&A Scolaire</h3>
-                                <Badge color="green">Gratuit</Badge>
-                            </div>
-                            <div className="relative mb-6">
-                                <input
-                                    type="text"
-                                    placeholder="Posez votre question (ex: Comment factoriser un polynôme ?)"
-                                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-4 pr-12 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-                                />
-                                <button className="absolute right-3 top-1/2 -translate-y-1/2 bg-indigo-600 text-white p-2 rounded-lg"><Search size={20} /></button>
-                            </div>
-                            <div className="p-4 border border-indigo-100 bg-indigo-50/30 rounded-xl">
-                                <div className="flex justify-between items-start mb-2">
-                                    <span className="text-xs font-bold text-indigo-600 uppercase tracking-wider">Mathématiques</span>
-                                    <span className="text-xs text-slate-500">Il y a 2h</span>
+                <motion.div
+                    key={activeTab}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                >
+                    {activeTab === 'overview' ? (
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                            {/* Q&A Section */}
+                            <Card className="lg:col-span-2 !p-0 overflow-hidden border-0 shadow-lg ring-1 ring-slate-100">
+                                <div className="p-6 border-b border-slate-100 bg-white flex justify-between items-center">
+                                    <h3 className="text-xl font-bold flex items-center gap-3">
+                                        <div className="p-2 bg-indigo-50 rounded-lg text-indigo-600"><MessageSquare size={20} /></div>
+                                        Q&A Scolaire
+                                    </h3>
+                                    <Badge color="green" className="bg-green-100 text-green-700 border-transparent">En direct</Badge>
                                 </div>
-                                <p className="font-semibold text-slate-800">C'est quoi la différence entre mitose et méiose ?</p>
-                                <div className="mt-3 flex items-center gap-2 text-sm text-teal-600 font-medium">
-                                    <CheckCircle size={16} /> Réponse disponible
-                                </div>
-                            </div>
-                        </Card>
-
-                        <Card>
-                            <h3 className="text-xl font-bold mb-6 flex items-center gap-2"><FileText className="text-amber-600" /> Mes devoirs</h3>
-                            <div className="space-y-3">
-                                {["Exercice de Math", "Révision Anglais", "Lecture suivie"].map((task, i) => (
-                                    <div key={i} className="flex items-center gap-3 p-3 hover:bg-slate-50 rounded-xl transition-colors cursor-pointer">
-                                        <div className={`w-6 h-6 rounded-md border-2 ${i === 1 ? 'bg-indigo-600 border-indigo-600' : 'border-slate-300'}`} />
-                                        <span className={i === 1 ? 'line-through text-slate-400' : 'text-slate-700 font-medium'}>{task}</span>
+                                <div className="p-6 bg-slate-50/50">
+                                    <div className="relative mb-8 group">
+                                        <input
+                                            type="text"
+                                            placeholder="Posez votre question (ex: Comment factoriser un polynôme ?)"
+                                            className="w-full bg-white border border-slate-200 rounded-2xl px-5 py-4 pr-14 focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all shadow-sm group-hover:shadow-md"
+                                        />
+                                        <button className="absolute right-3 top-1/2 -translate-y-1/2 bg-primary text-white p-2.5 rounded-xl hover:bg-primary-dark transition-colors shadow-lg shadow-primary/20">
+                                            <Search size={20} />
+                                        </button>
                                     </div>
+                                    <div className="space-y-4">
+                                        <div className="p-5 bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+                                            <div className="flex justify-between items-start mb-3">
+                                                <Badge color="blue">Mathématiques</Badge>
+                                                <span className="text-xs text-slate-400 font-medium">Il y a 2h</span>
+                                            </div>
+                                            <p className="font-bold text-slate-800 text-lg mb-4">C'est quoi la différence entre mitose et méiose ?</p>
+                                            <div className="flex items-center gap-2 text-sm text-emerald-600 font-bold bg-emerald-50 w-fit px-3 py-1 rounded-full">
+                                                <CheckCircle size={16} /> 3 Réponses vérifiées
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Card>
+
+                            {/* Schedule / Next Sessions */}
+                            <Card className="lg:col-span-1 border-0 shadow-lg ring-1 ring-slate-100 h-fit">
+                                <h3 className="text-xl font-bold mb-6 flex items-center gap-3">
+                                    <div className="p-2 bg-amber-50 rounded-lg text-amber-600"><Calendar size={20} /></div>
+                                    Agenda
+                                </h3>
+                                <div className="p-6 bg-gradient-to-br from-amber-50 to-orange-50 rounded-3xl border border-amber-100 text-center">
+                                    <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm">
+                                        <Calendar className="text-amber-500" size={24} />
+                                    </div>
+                                    <p className="text-amber-900 font-bold text-lg mb-2">Aucune séance prévue</p>
+                                    <p className="text-amber-700/80 text-sm mb-6">Planifiez votre premier cours dès maintenant.</p>
+                                    <Button onClick={() => setActiveTab('teachers')} variant="secondary" className="w-full justify-center">
+                                        Trouver un prof
+                                    </Button>
+                                </div>
+                            </Card>
+
+                            {/* Stats */}
+                            <Card className="lg:col-span-2 border-0 shadow-lg ring-1 ring-slate-100">
+                                <div className="flex justify-between items-center mb-8">
+                                    <h3 className="text-xl font-bold flex items-center gap-3">
+                                        <div className="p-2 bg-teal-50 rounded-lg text-teal-600"><TrendingUp size={20} /></div>
+                                        Progression
+                                    </h3>
+                                    <select className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-1 text-sm font-medium text-slate-600 outline-none">
+                                        <option>Cette année</option>
+                                        <option>Moyenne générale</option>
+                                    </select>
+                                </div>
+
+                                <div className="h-64 flex items-end justify-between gap-4 px-4 pb-4">
+                                    {[45, 60, 50, 75, 65, 85].map((h, i) => (
+                                        <div key={i} className="w-full flex flex-col justify-end h-full gap-2 group cursor-pointer">
+                                            <div className="w-full bg-slate-100 rounded-xl relative overflow-hidden h-full flex items-end">
+                                                <motion.div
+                                                    initial={{ height: 0 }}
+                                                    whileInView={{ height: `${h}%` }}
+                                                    transition={{ duration: 1, type: "spring" }}
+                                                    className="w-full bg-primary/80 group-hover:bg-primary transition-colors relative"
+                                                >
+                                                    <div className="opacity-0 group-hover:opacity-100 absolute -top-10 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-xs font-bold px-2 py-1 rounded transition-opacity whitespace-nowrap z-10">
+                                                        {h}/100
+                                                    </div>
+                                                </motion.div>
+                                            </div>
+                                            <span className="text-xs font-bold text-slate-400 text-center uppercase">{['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Juin'][i]}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </Card>
+
+                            {/* Assignments */}
+                            <Card className="lg:col-span-1 border-0 shadow-lg ring-1 ring-slate-100">
+                                <h3 className="text-xl font-bold mb-6 flex items-center gap-3">
+                                    <div className="p-2 bg-purple-50 rounded-lg text-purple-600"><FileText size={20} /></div>
+                                    À faire
+                                </h3>
+                                <div className="space-y-4">
+                                    {["Exercice de Math", "Révision Anglais", "Lecture suivie"].map((task, i) => (
+                                        <div key={i} className="group flex items-center gap-4 p-4 rounded-2xl hover:bg-slate-50 transition-colors cursor-pointer border border-transparent hover:border-slate-100">
+                                            <div className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-colors ${i === 1 ? 'bg-primary border-primary text-white' : 'border-slate-300 group-hover:border-primary'}`}>
+                                                {i === 1 && <CheckCircle size={14} />}
+                                            </div>
+                                            <span className={`font-medium transition-colors ${i === 1 ? 'line-through text-slate-400' : 'text-slate-700 group-hover:text-slate-900'}`}>{task}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                                <Button variant="ghost" className="w-full mt-6 text-slate-500">Voir tout</Button>
+                            </Card>
+                        </div>
+                    ) : (
+                        <div className="space-y-8">
+                            <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col md:flex-row gap-4">
+                                <div className="flex-grow relative">
+                                    <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-400" size={24} />
+                                    <input
+                                        type="text"
+                                        placeholder="Que voulez-vous apprendre aujourd'hui ?"
+                                        className="w-full pl-16 pr-6 py-4 bg-slate-50 border-0 rounded-2xl focus:ring-2 focus:ring-primary/20 text-lg placeholder:text-slate-400 font-medium"
+                                        value={searchQuery}
+                                        onChange={(e) => setSearchQuery(e.target.value)}
+                                    />
+                                </div>
+                                <Button variant="outline" className="px-8 h-auto rounded-2xl border-slate-200 hover:border-slate-300">
+                                    <Filter size={20} className="mr-2" /> Filtres
+                                </Button>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                                {teachers.map((t, idx) => (
+                                    <motion.div
+                                        key={idx}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: idx * 0.1 }}
+                                    >
+                                        <TeacherCard teacher={t} onSelect={() => navigate('/teacher/sample')} />
+                                    </motion.div>
                                 ))}
                             </div>
-                        </Card>
-
-                        <Card className="lg:col-span-1">
-                            <h3 className="text-xl font-bold mb-6 flex items-center gap-2"><Calendar className="text-indigo-600" /> Prochaines séances</h3>
-                            <div className="p-4 bg-amber-50 rounded-2xl border border-amber-100">
-                                <p className="text-amber-800 font-medium text-sm">Vous n'avez pas de répétiteur actif.</p>
-                                <button onClick={() => setActiveTab('teachers')} className="mt-2 text-amber-900 font-bold flex items-center gap-1 text-sm">Trouver un répétiteur <ArrowRight size={14} /></button>
-                            </div>
-                        </Card>
-
-                        <Card className="lg:col-span-2">
-                            <h3 className="text-xl font-bold mb-6 flex items-center gap-2"><TrendingUp className="text-teal-600" /> Progrès globaux</h3>
-                            <div className="h-48 flex items-end justify-between gap-2 px-4">
-                                {[40, 70, 45, 90, 65, 80].map((h, i) => (
-                                    <div key={i} className="bg-indigo-100 w-full rounded-t-lg relative group transition-all" style={{ height: `${h}%` }}>
-                                        <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">Score: {h}</div>
-                                    </div>
-                                ))}
-                            </div>
-                            <div className="flex justify-between mt-4 text-xs text-slate-400 font-bold uppercase">
-                                <span>Jan</span><span>Fev</span><span>Mar</span><span>Avr</span><span>Mai</span><span>Juin</span>
-                            </div>
-                        </Card>
-                    </div>
-                ) : (
-                    <div className="space-y-8">
-                        <div className="flex gap-4">
-                            <div className="flex-grow relative">
-                                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
-                                <input
-                                    type="text"
-                                    placeholder="Rechercher par matière ou nom..."
-                                    className="w-full pl-12 pr-4 py-4 bg-white border border-slate-200 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none"
-                                    value={searchQuery}
-                                    onChange={(e) => setSearchQuery(e.target.value)}
-                                />
-                            </div>
-                            <Button variant="outline" className="px-6 h-[58px]">
-                                <Filter size={20} /> Filtres
-                            </Button>
                         </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {teachers.map((t, idx) => (
-                                <TeacherCard key={idx} teacher={t} onSelect={() => navigate('/teacher/sample')} />
-                            ))}
-                        </div>
-                    </div>
-                )}
+                    )}
+                </motion.div>
             </main>
         </div>
     );
