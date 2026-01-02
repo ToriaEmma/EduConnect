@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
+import { getAllTeachers, logoutUser } from '../services/firebaseService';
 import {
     School, BookOpen, MessageSquare, LineChart, Search,
     Bell, LogOut, Calendar, TrendingUp, FileText,
@@ -9,10 +11,12 @@ import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
 import { TeacherCard } from '../components/TeacherCard';
+import { MessagingPanel } from '../components/MessagingPanel';
 import { motion } from 'framer-motion';
 
 export const StudentDashboard = () => {
     const navigate = useNavigate();
+    const { user } = useAuth();
     const [searchParams, setSearchParams] = useSearchParams();
     const activeTab = searchParams.get('tab') || 'overview';
     const setActiveTab = (tab) => {
@@ -20,12 +24,38 @@ export const StudentDashboard = () => {
     };
 
     const [searchQuery, setSearchQuery] = useState('');
+    const [teachers, setTeachers] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-    const teachers = [
-        { name: "Dr. Sarah Koné", role: "Enseignante Mathématiques", rating: 4.9, reviews: 124, subjects: ["Algèbre", "Géométrie"], price: "15.000 F", img: "https://images.unsplash.com/photo-1544717305-2782549b5136?w=100&h=100&fit=crop" },
-        { name: "M. Marc Traoré", role: "Répétiteur Physique", rating: 4.7, reviews: 89, subjects: ["Physique", "Chimie"], price: "12.000 F", img: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop" },
-        { name: "Mme. Elise Diallo", role: "Étudiante Master Anglais", rating: 4.5, reviews: 34, subjects: ["Anglais", "Oral"], price: "8.000 F", img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop" },
-    ];
+    // Charger les vrais profs depuis Firebase
+    useEffect(() => {
+        const loadTeachers = async () => {
+            try {
+                const teachersData = await getAllTeachers();
+                // Formater pour TeacherCard
+                const formatted = teachersData.map(t => ({
+                    name: t.name || 'Enseignant',
+                    role: t.role || 'Répétiteur',
+                    rating: 4.5,
+                    reviews: 0,
+                    subjects: t.subjects || [],
+                    price: t.hourlyRate || 'À définir',
+                    img: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop"
+                }));
+                setTeachers(formatted);
+            } catch (error) {
+                console.error('Erreur chargement profs:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        loadTeachers();
+    }, []);
+
+    const handleLogout = async () => {
+        await logoutUser();
+        navigate('/');
+    };
 
     const menuItems = [
         { id: 'overview', label: 'Tableau de bord', icon: LineChart },
@@ -82,7 +112,7 @@ export const StudentDashboard = () => {
                             <div className="bg-amber-500 h-full w-[70%]"></div>
                         </div>
                     </div>
-                    <Button variant="ghost" className="w-full justify-start text-red-500 hover:bg-red-50 hover:text-red-600" onClick={() => navigate('/')}>
+                    <Button variant="ghost" className="w-full justify-start text-red-500 hover:bg-red-50 hover:text-red-600" onClick={handleLogout}>
                         <LogOut size={20} className="mr-2" /> Déconnexion
                     </Button>
                 </div>
@@ -97,7 +127,7 @@ export const StudentDashboard = () => {
                             animate={{ opacity: 1, x: 0 }}
                             className="text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight"
                         >
-                            {activeTab === 'overview' ? 'Bonjour, Marc ! 👋' : 'Trouvez votre mentor'}
+                            {activeTab === 'overview' ? `Bonjour, ${user?.name?.split(' ')[0] || 'Étudiant'} ! 👋` : 'Trouvez votre mentor'}
                         </motion.h2>
                         <p className="text-slate-500 mt-2 font-medium">
                             {activeTab === 'overview' ? 'Prêt à apprendre quelque chose de nouveau aujourd\'hui ?' : 'Connectez-vous avec des experts validés.'}
@@ -423,98 +453,7 @@ export const StudentDashboard = () => {
                     )}
 
                     {activeTab === 'messages' && (
-                        <Card className="h-[calc(100vh-140px)] border-0 shadow-lg ring-1 ring-slate-100 overflow-hidden flex">
-                            {/* Conversations List */}
-                            <div className="w-80 border-r border-slate-100 bg-slate-50/50 flex flex-col hidden md:flex">
-                                <div className="p-4 border-b border-slate-100">
-                                    <div className="relative">
-                                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
-                                        <input className="w-full bg-white border border-slate-200 rounded-xl pl-9 pr-3 py-2 text-sm focus:outline-none focus:border-primary" placeholder="Rechercher..." />
-                                    </div>
-                                </div>
-                                <div className="flex-grow overflow-y-auto p-2 space-y-1">
-                                    {[
-                                        { name: "Dr. Sarah Koné", msg: "N'oublie pas de réviser le chapitre 3...", time: "10:30", active: true },
-                                        { name: "M. Marc Traoré", msg: "Le cours est confirmé pour demain.", time: "Hier", active: false },
-                                        { name: "Support EduConnect", msg: "Bienvenue sur la plateforme !", time: "Mar", active: false, badge: true },
-                                    ].map((chat, i) => (
-                                        <div key={i} className={`p-3 rounded-xl flex items-center gap-3 cursor-pointer transition-colors ${chat.active ? 'bg-white shadow-sm border border-slate-100' : 'hover:bg-slate-100'}`}>
-                                            <div className="relative">
-                                                <div className="w-10 h-10 bg-slate-200 rounded-full flex items-center justify-center text-slate-500 font-bold">
-                                                    {chat.name.charAt(0)}
-                                                </div>
-                                                {i === 0 && <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-white rounded-full"></div>}
-                                            </div>
-                                            <div className="flex-grow overflow-hidden">
-                                                <div className="flex justify-between items-baseline mb-0.5">
-                                                    <span className={`text-sm font-bold ${chat.active ? 'text-slate-900' : 'text-slate-700'}`}>{chat.name}</span>
-                                                    <span className="text-xs text-slate-400">{chat.time}</span>
-                                                </div>
-                                                <p className="text-xs text-slate-500 truncate">{chat.msg}</p>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-
-                            {/* Chat Window */}
-                            <div className="flex-grow flex flex-col bg-white">
-                                <div className="p-4 border-b border-slate-100 flex justify-between items-center">
-                                    <div className="flex items-center gap-3">
-                                        <div className="w-10 h-10 bg-slate-200 rounded-full flex items-center justify-center text-slate-500 font-bold">D</div>
-                                        <div>
-                                            <div className="font-bold text-slate-900">Dr. Sarah Koné</div>
-                                            <div className="text-xs text-green-500 flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-green-500"></span> En ligne</div>
-                                        </div>
-                                    </div>
-                                    <Button variant="ghost" size="icon"><Filter size={20} /></Button>
-                                </div>
-
-                                <div className="flex-grow p-6 overflow-y-auto space-y-6 bg-slate-50/30">
-                                    <div className="flex justify-center"><span className="bg-slate-100 text-slate-500 text-xs px-3 py-1 rounded-full">Aujourd'hui</span></div>
-                                    <div className="flex gap-4 max-w-[80%]">
-                                        <div className="w-8 h-8 rounded-full bg-slate-200 flex-shrink-0 mt-1"></div>
-                                        <div>
-                                            <div className="bg-white border border-slate-100 p-4 rounded-2xl rounded-tl-none shadow-sm text-slate-700">
-                                                Bonjour Marc ! As-tu pu regarder les exercices de factorisation ?
-                                            </div>
-                                            <span className="text-xs text-slate-400 mt-1 block">10:30 by Dr. Sarah Koné</span>
-                                        </div>
-                                    </div>
-                                    <div className="flex gap-4 max-w-[80%] ml-auto flex-row-reverse">
-                                        <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white text-xs font-bold flex-shrink-0 mt-1">MA</div>
-                                        <div>
-                                            <div className="bg-primary text-white p-4 rounded-2xl rounded-tr-none shadow-md shadow-primary/20">
-                                                Oui, j'ai fini les 3 premiers, mais je bloque sur le dernier... 😕
-                                            </div>
-                                            <span className="text-xs text-slate-400 mt-1 block text-right">10:32 by Vous</span>
-                                        </div>
-                                    </div>
-                                    <div className="flex gap-4 max-w-[80%]">
-                                        <div className="w-8 h-8 rounded-full bg-slate-200 flex-shrink-0 mt-1"></div>
-                                        <div>
-                                            <div className="bg-white border border-slate-100 p-4 rounded-2xl rounded-tl-none shadow-sm text-slate-700">
-                                                Pas de souci, on regardera ça ensemble lors de la séance de 14h. N'oublie pas de réviser le chapitre 3 aussi !
-                                            </div>
-                                            <span className="text-xs text-slate-400 mt-1 block">10:33 by Dr. Sarah Koné</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="p-4 bg-white border-t border-slate-100">
-                                    <div className="relative">
-                                        <input
-                                            type="text"
-                                            placeholder="Écrivez votre message..."
-                                            className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-4 pr-12 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
-                                        />
-                                        <button className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors">
-                                            <ArrowRight size={16} />
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </Card>
+                        <MessagingPanel />
                     )}
                 </motion.div>
             </main>
