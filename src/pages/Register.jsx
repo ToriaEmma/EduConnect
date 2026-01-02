@@ -21,10 +21,7 @@ export const Register = () => {
                     className="w-full max-w-lg mx-auto"
                 >
                     <div className="flex items-center gap-2 mb-8 cursor-pointer" onClick={() => navigate('/')}>
-                        <div className="bg-primary/10 p-2 rounded-lg">
-                            <School className="text-primary w-6 h-6" />
-                        </div>
-                        <span className="text-xl font-bold text-slate-900">EduConnect</span>
+                        <img src="/educo.png" alt="EduConnect" className="h-20 w-auto" />
                     </div>
 
                     <div className="mb-8">

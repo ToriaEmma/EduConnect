@@ -119,7 +119,7 @@ export const HomePage = () => {
                                 </div>
                             </div>
 
-                            <Button onClick={() => navigate('/teacher/sample')} className="gap-2">
+                            <Button onClick={() => navigate('/method')} className="gap-2">
                                 Découvrir notre méthode <ArrowRight size={18} />
                             </Button>
                         </div>
@@ -350,7 +350,7 @@ export const HomePage = () => {
                             size="lg"
                             variant="outline"
                             className="text-white border-white hover:bg-white/10"
-                            onClick={() => window.location.href = 'mailto:contact@educonnect.com'}
+                            onClick={() => navigate('/contact')}
                         >
                             Nous contacter
                         </Button>

@@ -114,6 +114,26 @@ export const TeacherDashboard = () => {
                             <div className="text-sm text-slate-400 mt-2">Basé sur 45 avis</div>
                         </Card>
 
+                        {/* Quiz Creator CTA */}
+                        <Card className="lg:col-span-3 bg-gradient-to-br from-indigo-600 to-indigo-900 text-white border-0 shadow-xl p-8 relative overflow-hidden cursor-pointer hover:shadow-2xl transition-shadow" onClick={() => navigate('/teacher/quiz-creator')}>
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-20 -mt-20" />
+                            <div className="relative flex items-center justify-between">
+                                <div>
+                                    <div className="flex items-center gap-3 mb-3">
+                                        <div className="p-3 bg-white/20 rounded-xl backdrop-blur-sm">
+                                            <FileText size={28} />
+                                        </div>
+                                        <Badge className="bg-amber-500 text-white border-0">Nouveau</Badge>
+                                    </div>
+                                    <h3 className="text-2xl font-bold mb-2">🎮 Créez des Quiz pour vos Élèves</h3>
+                                    <p className="text-white/90 text-lg">Créez des quiz interactifs et suivez les performances de vos élèves en temps réel.</p>
+                                </div>
+                                <Button className="bg-pink-500 text-white hover:bg-pink-600 font-bold px-8 py-3 text-lg">
+                                    Créer un Quiz →
+                                </Button>
+                            </div>
+                        </Card>
+
                         {/* Requests */}
                         <div className="lg:col-span-2 space-y-6">
                             <h3 className="text-xl font-bold text-slate-900">Demandes en attente</h3>

@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
     School, BookOpen, MessageSquare, LineChart, Search,
     Bell, LogOut, Calendar, TrendingUp, FileText,
-    CheckCircle, ArrowRight, Filter, PlusCircle
+    CheckCircle, ArrowRight, Filter, PlusCircle, Gamepad2
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
@@ -31,8 +31,9 @@ export const StudentDashboard = () => {
         { id: 'overview', label: 'Tableau de bord', icon: LineChart },
         { id: 'teachers', label: 'Trouver un répétiteur', icon: Search },
         { id: 'subjects', label: 'Mes Matières', icon: BookOpen },
-        { id: 'qa', label: 'Q&A Scolaire', icon: MessageSquare }, // Added Q&A Tab
+        { id: 'qa', label: 'Q&A Scolaire', icon: MessageSquare },
         { id: 'messages', label: 'Messagerie', icon: MessageSquare },
+        { id: 'games', label: '🎮 Jeux Éducatifs', icon: Gamepad2, isExternal: true }
     ];
 
     return (
@@ -53,7 +54,7 @@ export const StudentDashboard = () => {
                         return (
                             <button
                                 key={item.id}
-                                onClick={() => setActiveTab(item.id)}
+                                onClick={() => item.isExternal ? navigate('/student/games') : setActiveTab(item.id)}
                                 className={`w-full text-left px-5 py-4 rounded-xl flex items-center gap-4 transition-all duration-200 group ${isActive
                                     ? 'bg-primary text-white shadow-lg shadow-primary/25'
                                     : 'text-slate-500 hover:bg-slate-50 hover:text-primary'
@@ -349,7 +350,7 @@ export const StudentDashboard = () => {
                                             placeholder="Quelle est votre question ?"
                                             className="w-full bg-white/20 backdrop-blur-md border border-white/30 rounded-xl px-5 py-3 text-white placeholder:text-white/70 focus:outline-none focus:bg-white/30 transition-all font-medium"
                                         />
-                                        <Button className="absolute right-1 top-1 bg-white text-primary hover:bg-slate-100 border-0 h-auto py-2">
+                                        <Button className="absolute right-1 top-1 bg-emerald-500 text-white hover:bg-emerald-600 border-0 h-auto py-2 shadow-lg">
                                             Poser
                                         </Button>
                                     </div>
@@ -369,7 +370,11 @@ export const StudentDashboard = () => {
                                         { title: "Comment équilibrer une équation redox ?", subject: "Physique-Chimie", answers: 2, time: "45min", verified: false },
                                         { title: "Analyse du poème 'Demain, dès l'aube'", subject: "Français", answers: 8, time: "Hier", verified: true },
                                     ].map((q, idx) => (
-                                        <Card key={idx} className="hover:shadow-md transition-shadow cursor-pointer">
+                                        <Card
+                                            key={idx}
+                                            onClick={() => navigate('/questions/' + idx)}
+                                            className="hover:shadow-md transition-shadow cursor-pointer"
+                                        >
                                             <div className="p-6">
                                                 <div className="flex justify-between items-start mb-3">
                                                     <div className="flex items-center gap-2">

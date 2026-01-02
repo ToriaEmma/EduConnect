@@ -28,10 +28,7 @@ export function Layout({ children }) {
                         {/* Brand Column */}
                         <div className="space-y-6">
                             <div className="flex items-center gap-2">
-                                <div className="bg-white p-2 rounded-lg">
-                                    <div className="text-primary"><School size={24} /></div>
-                                </div>
-                                <span className="font-bold text-2xl tracking-tight">EduConnect</span>
+                                <img src="/educo.png" alt="EduConnect" className="h-24 w-auto" />
                             </div>
                             <p className="text-slate-400 text-sm leading-relaxed">
                                 La plateforme qui révolutionne la connexion entre élèves, enseignants et établissements scolaires grâce à la validation des compétences par le jeu.
@@ -70,7 +67,7 @@ export function Layout({ children }) {
                                 <li><a href="#" className="hover:text-white transition-colors">Centre d'aide</a></li>
                                 <li><a href="#" className="hover:text-white transition-colors">Conditions Générales</a></li>
                                 <li><a href="#" className="hover:text-white transition-colors">Politique de Confidentialité</a></li>
-                                <li><a href="#" className="hover:text-white transition-colors">Nous Contacter</a></li>
+                                <li><a href="/contact" className="hover:text-white transition-colors">Nous Contacter</a></li>
                             </ul>
                         </div>
 
