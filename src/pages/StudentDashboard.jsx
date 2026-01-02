@@ -49,8 +49,8 @@ export const StudentDashboard = () => {
                                 key={item.id}
                                 onClick={() => setActiveTab(item.id)}
                                 className={`w-full text-left px-5 py-4 rounded-xl flex items-center gap-4 transition-all duration-200 group ${isActive
-                                        ? 'bg-primary text-white shadow-lg shadow-primary/25'
-                                        : 'text-slate-500 hover:bg-slate-50 hover:text-primary'
+                                    ? 'bg-primary text-white shadow-lg shadow-primary/25'
+                                    : 'text-slate-500 hover:bg-slate-50 hover:text-primary'
                                     }`}
                             >
                                 <Icon size={20} className={isActive ? 'text-white' : 'text-slate-400 group-hover:text-primary transition-colors'} />
@@ -119,7 +119,7 @@ export const StudentDashboard = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3 }}
                 >
-                    {activeTab === 'overview' ? (
+                    {activeTab === 'overview' && (
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                             {/* Q&A Section */}
                             <Card className="lg:col-span-2 !p-0 overflow-hidden border-0 shadow-lg ring-1 ring-slate-100">
@@ -227,7 +227,9 @@ export const StudentDashboard = () => {
                                 <Button variant="ghost" className="w-full mt-6 text-slate-500">Voir tout</Button>
                             </Card>
                         </div>
-                    ) : (
+                    )}
+
+                    {activeTab === 'teachers' && (
                         <div className="space-y-8">
                             <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col md:flex-row gap-4">
                                 <div className="flex-grow relative">
@@ -258,6 +260,101 @@ export const StudentDashboard = () => {
                                 ))}
                             </div>
                         </div>
+                    )}
+
+                    {activeTab === 'messages' && (
+                        <Card className="h-[calc(100vh-140px)] border-0 shadow-lg ring-1 ring-slate-100 overflow-hidden flex">
+                            {/* Conversations List */}
+                            <div className="w-80 border-r border-slate-100 bg-slate-50/50 flex flex-col hidden md:flex">
+                                <div className="p-4 border-b border-slate-100">
+                                    <div className="relative">
+                                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
+                                        <input className="w-full bg-white border border-slate-200 rounded-xl pl-9 pr-3 py-2 text-sm focus:outline-none focus:border-primary" placeholder="Rechercher..." />
+                                    </div>
+                                </div>
+                                <div className="flex-grow overflow-y-auto p-2 space-y-1">
+                                    {[
+                                        { name: "Dr. Sarah Koné", msg: "N'oublie pas de réviser le chapitre 3...", time: "10:30", active: true },
+                                        { name: "M. Marc Traoré", msg: "Le cours est confirmé pour demain.", time: "Hier", active: false },
+                                        { name: "Support EduConnect", msg: "Bienvenue sur la plateforme !", time: "Mar", active: false, badge: true },
+                                    ].map((chat, i) => (
+                                        <div key={i} className={`p-3 rounded-xl flex items-center gap-3 cursor-pointer transition-colors ${chat.active ? 'bg-white shadow-sm border border-slate-100' : 'hover:bg-slate-100'}`}>
+                                            <div className="relative">
+                                                <div className="w-10 h-10 bg-slate-200 rounded-full flex items-center justify-center text-slate-500 font-bold">
+                                                    {chat.name.charAt(0)}
+                                                </div>
+                                                {i === 0 && <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-white rounded-full"></div>}
+                                            </div>
+                                            <div className="flex-grow overflow-hidden">
+                                                <div className="flex justify-between items-baseline mb-0.5">
+                                                    <span className={`text-sm font-bold ${chat.active ? 'text-slate-900' : 'text-slate-700'}`}>{chat.name}</span>
+                                                    <span className="text-xs text-slate-400">{chat.time}</span>
+                                                </div>
+                                                <p className="text-xs text-slate-500 truncate">{chat.msg}</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Chat Window */}
+                            <div className="flex-grow flex flex-col bg-white">
+                                <div className="p-4 border-b border-slate-100 flex justify-between items-center">
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-10 h-10 bg-slate-200 rounded-full flex items-center justify-center text-slate-500 font-bold">D</div>
+                                        <div>
+                                            <div className="font-bold text-slate-900">Dr. Sarah Koné</div>
+                                            <div className="text-xs text-green-500 flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-green-500"></span> En ligne</div>
+                                        </div>
+                                    </div>
+                                    <Button variant="ghost" size="icon"><Filter size={20} /></Button>
+                                </div>
+
+                                <div className="flex-grow p-6 overflow-y-auto space-y-6 bg-slate-50/30">
+                                    <div className="flex justify-center"><span className="bg-slate-100 text-slate-500 text-xs px-3 py-1 rounded-full">Aujourd'hui</span></div>
+                                    <div className="flex gap-4 max-w-[80%]">
+                                        <div className="w-8 h-8 rounded-full bg-slate-200 flex-shrink-0 mt-1"></div>
+                                        <div>
+                                            <div className="bg-white border border-slate-100 p-4 rounded-2xl rounded-tl-none shadow-sm text-slate-700">
+                                                Bonjour Marc ! As-tu pu regarder les exercices de factorisation ?
+                                            </div>
+                                            <span className="text-xs text-slate-400 mt-1 block">10:30 by Dr. Sarah Koné</span>
+                                        </div>
+                                    </div>
+                                    <div className="flex gap-4 max-w-[80%] ml-auto flex-row-reverse">
+                                        <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white text-xs font-bold flex-shrink-0 mt-1">MA</div>
+                                        <div>
+                                            <div className="bg-primary text-white p-4 rounded-2xl rounded-tr-none shadow-md shadow-primary/20">
+                                                Oui, j'ai fini les 3 premiers, mais je bloque sur le dernier... 😕
+                                            </div>
+                                            <span className="text-xs text-slate-400 mt-1 block text-right">10:32 by Vous</span>
+                                        </div>
+                                    </div>
+                                    <div className="flex gap-4 max-w-[80%]">
+                                        <div className="w-8 h-8 rounded-full bg-slate-200 flex-shrink-0 mt-1"></div>
+                                        <div>
+                                            <div className="bg-white border border-slate-100 p-4 rounded-2xl rounded-tl-none shadow-sm text-slate-700">
+                                                Pas de souci, on regardera ça ensemble lors de la séance de 14h. N'oublie pas de réviser le chapitre 3 aussi !
+                                            </div>
+                                            <span className="text-xs text-slate-400 mt-1 block">10:33 by Dr. Sarah Koné</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="p-4 bg-white border-t border-slate-100">
+                                    <div className="relative">
+                                        <input
+                                            type="text"
+                                            placeholder="Écrivez votre message..."
+                                            className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-4 pr-12 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                                        />
+                                        <button className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors">
+                                            <ArrowRight size={16} />
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </Card>
                     )}
                 </motion.div>
             </main>
