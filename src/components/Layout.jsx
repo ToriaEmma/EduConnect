@@ -28,7 +28,10 @@ export function Layout({ children }) {
                         {/* Brand Column */}
                         <div className="space-y-6">
                             <div className="flex items-center gap-2">
-                                <img src="/educo.png" alt="EduConnect" className="h-24 w-auto" />
+                                <div className="bg-primary/20 p-2 rounded-xl">
+                                    <School className="text-primary w-6 h-6" />
+                                </div>
+                                <span className="text-2xl font-bold text-white tracking-tight">Edu<span className="text-primary">Connect</span></span>
                             </div>
                             <p className="text-slate-400 text-sm leading-relaxed">
                                 La plateforme qui révolutionne la connexion entre élèves, enseignants et établissements scolaires grâce à la validation des compétences par le jeu.

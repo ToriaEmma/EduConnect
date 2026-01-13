@@ -1,33 +1,49 @@
 import { initializeApp } from 'firebase/app';
-import { 
-  getAuth, 
+import {
+  getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged
 } from 'firebase/auth';
-import { 
-  getFirestore, 
-  collection, 
-  addDoc, 
-  query, 
-  where, 
-  getDocs 
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  query,
+  where,
+  getDocs
 } from 'firebase/firestore';
 
 // Config Firebase - Chargé depuis le fichier .env
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || 'demo-api-key',
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || 'demo.firebaseapp.com',
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || 'demo-project',
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || 'demo.appspot.com',
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || '123456789',
+  appId: import.meta.env.VITE_FIREBASE_APP_ID || 'demo-app-id'
 };
 
-const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-export const db = getFirestore(app);
+// Only initialize if we have real Firebase config (not demo values)
+const hasRealConfig = import.meta.env.VITE_FIREBASE_API_KEY &&
+  import.meta.env.VITE_FIREBASE_API_KEY !== 'demo-api-key';
+
+let app, auth, db;
+
+if (hasRealConfig) {
+  app = initializeApp(firebaseConfig);
+  auth = getAuth(app);
+  db = getFirestore(app);
+} else {
+  console.warn('Firebase not configured. Using demo mode. Add .env file with Firebase credentials for full functionality.');
+  // Create mock exports to prevent import errors
+  auth = null;
+  db = null;
+}
+
+export { auth, db };
+
 
 // REGISTER
 export async function registerUser(email, password, userData) {
@@ -52,7 +68,7 @@ export async function registerUser(email, password, userData) {
       createdAt: new Date()
     });
 
-    return { 
+    return {
       uid: user.uid,
       userData: {
         uid: user.uid,
@@ -82,7 +98,7 @@ export async function loginUser(email, password) {
     const usersRef = collection(db, 'users');
     const q = query(usersRef, where('uid', '==', user.uid));
     const querySnapshot = await getDocs(q);
-    
+
     let userData = null;
     querySnapshot.forEach((doc) => {
       userData = { id: doc.id, ...doc.data() };
@@ -115,7 +131,7 @@ export async function getAllTeachers() {
     const usersRef = collection(db, 'users');
     const q = query(usersRef, where('role', '==', 'teacher'));
     const querySnapshot = await getDocs(q);
-    
+
     const teachers = [];
     querySnapshot.forEach((doc) => {
       teachers.push({ id: doc.id, ...doc.data() });
@@ -134,7 +150,7 @@ export async function getAllStudents() {
     const usersRef = collection(db, 'users');
     const q = query(usersRef, where('role', '==', 'student'));
     const querySnapshot = await getDocs(q);
-    
+
     const students = [];
     querySnapshot.forEach((doc) => {
       students.push({ id: doc.id, ...doc.data() });

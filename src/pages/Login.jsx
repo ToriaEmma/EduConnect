@@ -32,7 +32,7 @@ export const Login = () => {
 
         try {
             const result = await loginUser(formData.email, formData.password);
-            
+
             if (!result.userData) {
                 throw new Error('Utilisateur non trouvé');
             }
@@ -49,7 +49,7 @@ export const Login = () => {
         } catch (err) {
             console.error('Erreur connexion:', err);
             setError('Email ou mot de passe incorrect');
-            
+
             // Si utilisateur n'existe pas, rediriger vers inscription après 3 secondes
             if (err.message.includes('user-not-found') || err.message.includes('invalid-credential')) {
                 setTimeout(() => {
@@ -73,7 +73,10 @@ export const Login = () => {
                     className="w-full max-w-md mx-auto"
                 >
                     <div className="flex items-center gap-2 mb-10 cursor-pointer" onClick={() => navigate('/')}>
-                        <img src="/educo.png" alt="EduConnect" className="h-20 w-auto" />
+                        <div className="bg-primary/10 p-2 rounded-xl">
+                            <School className="text-primary w-8 h-8" />
+                        </div>
+                        <span className="text-3xl font-bold text-slate-900 tracking-tight">Edu<span className="text-primary">Connect</span></span>
                     </div>
 
                     <div className="mb-6">

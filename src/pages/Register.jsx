@@ -38,9 +38,9 @@ export const Register = () => {
     const [role, setRole] = useState('student'); // student, teacher, school
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
-    
+
     const infoMessage = location.state?.message;
-    
+
     // Form data
     const [formData, setFormData] = useState({
         firstName: '',
@@ -82,7 +82,7 @@ export const Register = () => {
             }
 
             const user = await registerUser(formData.email, formData.password, userData);
-            
+
             // Rediriger vers la page de connexion après inscription
             navigate('/login', { state: { message: 'Inscription réussie ! Connectez-vous maintenant.' } });
         } catch (err) {
@@ -105,7 +105,10 @@ export const Register = () => {
                     className="w-full max-w-lg mx-auto"
                 >
                     <div className="flex items-center gap-2 mb-8 cursor-pointer" onClick={() => navigate('/')}>
-                        <img src="/educo.png" alt="EduConnect" className="h-20 w-auto" />
+                        <div className="bg-primary/10 p-2 rounded-xl">
+                            <School className="text-primary w-8 h-8" />
+                        </div>
+                        <span className="text-3xl font-bold text-slate-900 tracking-tight">Edu<span className="text-primary">Connect</span></span>
                     </div>
 
                     <div className="mb-8">
@@ -153,17 +156,17 @@ export const Register = () => {
 
                     <form className="space-y-5" onSubmit={handleRegister}>
                         <div className="grid grid-cols-2 gap-4">
-                            <Input 
-                                label="Prénom" 
-                                placeholder="Jean" 
-                                icon={User} 
+                            <Input
+                                label="Prénom"
+                                placeholder="Jean"
+                                icon={User}
                                 name="firstName"
                                 value={formData.firstName}
                                 onChange={handleChange}
                                 required
                             />
-                            <Input 
-                                label="Nom" 
+                            <Input
+                                label="Nom"
                                 placeholder="Dupont"
                                 name="lastName"
                                 value={formData.lastName}
@@ -172,20 +175,20 @@ export const Register = () => {
                             />
                         </div>
 
-                        <Input 
-                            label="Email" 
-                            type="email" 
-                            placeholder="jean.dupont@exemple.com" 
+                        <Input
+                            label="Email"
+                            type="email"
+                            placeholder="jean.dupont@exemple.com"
                             icon={Mail}
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
                             required
                         />
-                        <Input 
-                            label="Mot de passe" 
-                            type="password" 
-                            placeholder="Minimum 8 caractères" 
+                        <Input
+                            label="Mot de passe"
+                            type="password"
+                            placeholder="Minimum 8 caractères"
                             icon={Lock}
                             name="password"
                             value={formData.password}
@@ -195,9 +198,9 @@ export const Register = () => {
 
                         {role === 'teacher' && (
                             <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }}>
-                                <Input 
-                                    label="Spécialité" 
-                                    placeholder="Ex: Mathématiques" 
+                                <Input
+                                    label="Spécialité"
+                                    placeholder="Ex: Mathématiques"
                                     icon={GraduationCap}
                                     name="specialty"
                                     value={formData.specialty}
@@ -208,15 +211,15 @@ export const Register = () => {
 
                         {role === 'student' && (
                             <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="space-y-5">
-                                <Input 
-                                    label="Classe" 
-                                    placeholder="Ex: Terminale S" 
+                                <Input
+                                    label="Classe"
+                                    placeholder="Ex: Terminale S"
                                     name="grade"
                                     value={formData.grade}
                                     onChange={handleChange}
                                 />
-                                <Input 
-                                    label="École" 
+                                <Input
+                                    label="École"
                                     placeholder="Ex: Lycée Technique"
                                     name="school"
                                     value={formData.school}
@@ -227,9 +230,9 @@ export const Register = () => {
 
                         {role === 'school' && (
                             <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="space-y-5">
-                                <Input 
-                                    label="Nom de l'école" 
-                                    placeholder="Ex: Lycée Technique de Cotonou" 
+                                <Input
+                                    label="Nom de l'école"
+                                    placeholder="Ex: Lycée Technique de Cotonou"
                                     name="schoolName"
                                     value={formData.schoolName}
                                     onChange={handleChange}

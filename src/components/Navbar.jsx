@@ -10,18 +10,20 @@ export function Navbar() {
 
   const navLinks = [
     { name: 'Accueil', path: '/', icon: Home },
-    { name: 'Élèves & Parents', path: '/student', icon: User },
-    { name: 'Enseignants / Répétiteurs', path: '/teacher/1', icon: GraduationCap },
-    { name: 'Écoles', path: '/school', icon: School },
-    { name: 'Comment ça marche', path: '/#how-it-works', icon: HelpCircle },
+    { name: 'Tableau de bord', path: '/student', icon: User },
+    { name: 'Jeux', path: '/student/games', icon: GraduationCap },
   ];
+
 
   return (
     <nav className="fixed top-0 w-full z-50 glass transition-all duration-300 border-b border-slate-200/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <div className="flex-shrink-0 flex items-center gap-2">
-            <img src="/educo.png" alt="EduConnect" className="h-16 w-auto" />
+            <div className="bg-primary/10 p-2 rounded-xl">
+              <School className="text-primary w-6 h-6" />
+            </div>
+            <span className="text-2xl font-bold text-slate-800 tracking-tight">Edu<span className="text-primary">Connect</span></span>
           </div>
 
           <div className="hidden md:block">
